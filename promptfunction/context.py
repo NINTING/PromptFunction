@@ -1,32 +1,43 @@
-import string
-
 from langchain import BasePromptTemplate
 from langchain.llms.base import LLM
-
-
+from langchain.schema import BaseOutputParser
 
 
 class Context:
     llm: LLM = None
-    template: BasePromptTemplate = None
+    output_parse: BaseOutputParser = None
     variables: dict = {}
+
+    def __init__(self):
+        self.variables = {}
+        self.llm = None
+        self.output_parse = None
+
     @staticmethod
-    def switch_context(context):
+    def begin_context(context):
         global internal_context
         internal_context = context
 
     @staticmethod
+    def end_context(self):
+        global internal_context
+        internal_context = None
+
+    @staticmethod
     def current_context():
         global internal_context
+        if internal_context is None:
+            raise Exception("Context Is None ,Don't Use Context Outside PromptFunction")
         return internal_context
 
-    def set_var(self,key:string,value):
+    def __setitem__(self, key, value):
         self.variables[key] = value
 
-    def get_var(self, key):
+    def __getitem__(self, key):
         return self.variables.get(key)
 
-    def has_key(self,key):
+    def __contains__(self, key):
         return key in self.variables
+
 
 internal_context: Context = None

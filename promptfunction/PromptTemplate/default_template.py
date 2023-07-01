@@ -1,6 +1,7 @@
 from langchain import PromptTemplate
 
 template = '''
+{{doc_string}}
 {% if demand and demand.isHead -%}
 {{demand.content}}
 {% endif -%}
@@ -47,8 +48,7 @@ template = '''
 {% if demand and demand.isHead == false -%}
 {{demand.content}}
 {% endif -%}
+
 '''
 
-default_template = PromptTemplate(template=template, template_format="jinja2",
-                                  input_variables=["actor", "inputActions", "outputRequires", "interpretations",
-                                                   "demand"])
+default_template = PromptTemplate.from_template(template, template_format="jinja2")
