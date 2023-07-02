@@ -35,7 +35,7 @@ class NumberParse(ResponseTypeFormatter):
                             f" '{repr(e)}'")
 
     def get_format_instructions(self) -> str:
-        return f" Respond only with {self.return_annotation.__name__}. Never say anything else or add any punctuation.{PHRASE_DONT_EXPLAIN}.\n"
+        return f"Respond only with {self.return_annotation.__name__}. Never say anything else or add any punctuation.{PHRASE_DONT_EXPLAIN}.\n"
 
     @classmethod
     def check_response(cls, return_type):

@@ -14,17 +14,27 @@ python = "^3.10"
 langchain = "^0.0.217"
 jinja2 = "^3.1.2"
 jupyter = "^1.0.0"
+logging = "^0.4.9.6"
 
 
 [tool.poetry.group.dev.dependencies]
 langchainex = {path = "D:/GPT/LangChainEx", develop = true}
 coverage = "^7.2.7"
+pytest = "^7.4.0"
+duckduckgo-search = "^3.8.3"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)8s] \n%(message)s \n(%(filename)s:%(lineno)s)"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
+
 [[tool.poetry.source]]
 name = "aliyun"
 url = "http://mirrors.aliyun.com/pypi/simple"
 priority = 'default'
+

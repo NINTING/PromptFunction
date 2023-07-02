@@ -1,3 +1,5 @@
+import string
+
 from langchain import BasePromptTemplate
 from langchain.llms.base import LLM
 from langchain.schema import BaseOutputParser
@@ -7,6 +9,7 @@ class Context:
     llm: LLM = None
     output_parse: BaseOutputParser = None
     variables: dict = {}
+    stop:string = None
 
     def __init__(self):
         self.variables = {}

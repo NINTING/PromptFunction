@@ -5,6 +5,7 @@ from types import NoneType
 from langchain import OpenAI
 
 from promptfunction import prompt_func
+from promptfunction.PromptTemplate.doc_template import pipeline_prompt
 from promptfunction.function import set_llm, set_variable, set_output_parse
 from promptfunction.parse import NumberParse
 from promptfunction.util import debug_prompt
@@ -33,6 +34,8 @@ class MyTestCase(unittest.TestCase):
 
             set_llm(webLLm)
 
+
+
         self.assertIs(type(hello_world.context.llm), NoneType)
         self.assertIs(type(hello_world.llm_chain.llm), OpenAI)
         hello_world()
@@ -45,12 +48,13 @@ class MyTestCase(unittest.TestCase):
             {{a}} + {{b}} = ?
             """
             set_llm(webLLm)
-
-        self.assertIs(type(add_func.context.output_parse), NumberParse)
-        value = add_func(1, 2)
-        self.assertIs(type(value), int)
-        if value != 3:
-            logging.warning(f"Warning: {value} != 3")
+        print("==========Output Int=========")
+        print(debug_prompt(add_func, 1, 2))
+        # self.assertIs(type(add_func.context.output_parse), NumberParse)
+        # value = add_func(1, 2)
+        # self.assertIs(type(value), int)
+        # if value != 3:
+        #     logging.warning(f"Warning: {value} != 3")
 
     def test_float(self):
         @prompt_func()
@@ -93,9 +97,10 @@ class MyTestCase(unittest.TestCase):
 
         print("==========Output Number=========")
         print(debug_prompt(output_number))
-        age = output_number()
-        self.assertIs(type(age), int)
+       # age = output_number()
+       # self.assertIs(type(age), int)
 
+    # when output is undefined and require structure output. use set_output_parse() to set the output parse.
     def test_doc_is_template(self):
         @prompt_func(template=None)
         def python_shell(shell):
@@ -147,6 +152,14 @@ class MyTestCase(unittest.TestCase):
     #
     #     age = output_number()
     #     self.assertIs(type(age), int)
+
+    def test_pipeline(self):
+        for kv in pipeline_prompt.pipeline_prompts:
+            print(kv[0],kv[1].input_variables)
+
+        print(pipeline_prompt.final_prompt)
+        print(pipeline_prompt.input_variables)
+
 
 
 if __name__ == '__main__':

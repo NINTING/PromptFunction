@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 
 import openai
@@ -14,3 +15,6 @@ openai.proxy = {
 }
 
 webLLm = OpenAIWebLLM(**{'paid': True, 'model': 'gpt-3.5-turbo', 'chat_once': True})
+logging.getLogger().setLevel(logging.INFO)
+LOGGER = logging.getLogger("Test")
+LOGGER.setLevel(logging.INFO)
