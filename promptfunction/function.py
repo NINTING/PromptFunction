@@ -11,7 +11,8 @@ from promptfunction.resever_word import *
 def set_llm(llm: LLM):
     """Set the LLMChain."""
     context = Context.current_context()
-    context.llm = llm
+    if  llm is not None:
+        context.llm = llm
 
 
 def set_variable(key: str, value):

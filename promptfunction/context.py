@@ -33,6 +33,9 @@ class Context:
             raise Exception("Context Is None ,Don't Use Context Outside PromptFunction")
         return internal_context
 
+    def clear_variables(self):
+        self.variables = {}
+
     def __setitem__(self, key, value):
         self.variables[key] = value
 

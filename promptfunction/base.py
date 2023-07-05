@@ -10,7 +10,9 @@ from promptfunction.prompt_function_chain import PromptFunctionChain
 from promptfunction.resever_word import *
 
 
-# Todo: handle langchain buildin prompt template
+# TODO: chat mode
+# TODO: custom parse function and formater prompt
+
 class PromptFunction:
     context: Context = None
     raw_func: callable = None
@@ -33,7 +35,7 @@ class PromptFunction:
         self.llm_chain = PromptFunctionChain(llm=OpenAI(), prompt=self.template)
 
     def __call__(self, *args, debug_prompt=False, **kwargs):
-
+        self.context.clear_variables()
         Context.begin_context(self.context)
 
         bound_args = self.func_sig.bind(*args, **kwargs)
